@@ -9,7 +9,8 @@ import { images_data } from 'src/database';
 export class GalleryComponent implements OnInit {
 
   images_data = images_data
-
+  parallax_types = ['parallaxSlow','parallaxMedium','parallaxHigh']
+  
   constructor() { }
 
   ngOnInit(): void {
