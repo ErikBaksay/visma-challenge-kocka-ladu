@@ -1,3 +1,5 @@
-<div class="imageCard" *ngFor="let image in images_data[0].images">
-    <img src="{{image}}" alt="">
+<div class="container">
+    <div class="imageCard" *ngFor="let image of images_data[0].images">
+        <img src="{{image}}" alt="">
+    </div>
 </div>

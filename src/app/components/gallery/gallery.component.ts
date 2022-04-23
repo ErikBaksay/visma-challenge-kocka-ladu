@@ -9,7 +9,7 @@ import { images_data } from 'src/database';
 export class GalleryComponent implements OnInit {
 
   images_data = images_data
-
+  
   constructor() { }
 
   ngOnInit(): void {
