@@ -1,7 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+import { UploadComponent } from './components/upload/upload.component';
+import { GalleryComponent } from './components/gallery/gallery.component';
+
+const routes: Routes = [
+  {
+    path: "create",
+    component: UploadComponent
+  },
+  {
+    path: "",
+    component: GalleryComponent
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
