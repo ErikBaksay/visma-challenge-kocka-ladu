@@ -1,0 +1,21 @@
+<form action="post" link="/api/upload">
+    <label for="category">Name</label><br>
+    <input type="text" id="name" name="name" required><br>
+
+    <label for="category">Category</label><br>
+    <select id="category" name="category" required>
+        <option value="newcomers">Newcomers</option>
+        <option value="projects">New Projects</option>
+        <option value="tournaments">Tournaments</option>
+        <option value="sport">Sport Challenges</option>
+        <option value="other">Other events</option>
+    </select><br>
+
+    <label for="start">Date</label><br>
+    <input type="date" id="start" name="start" required><br>
+
+    <label for="pictures">Pictures</label><br>
+    <input type="file" id="pictures" name="pictures" accept="image/*" multiple required><br>
+
+    <input type="submit" value="Add new post">
+</form>
