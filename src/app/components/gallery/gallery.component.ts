@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { images_data } from 'src/database';
 
 @Component({
   selector: 'app-gallery',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./gallery.component.sass']
 })
 export class GalleryComponent implements OnInit {
+
+  images_data = images_data
 
   constructor() { }
 
