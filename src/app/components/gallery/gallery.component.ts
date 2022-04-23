@@ -9,7 +9,7 @@ import { images_data } from 'src/database';
 export class GalleryComponent implements OnInit {
 
   images_data = images_data
-  parallax_types = ['parallaxSlow', 'parallaxMedium', 'parallaxHigh']
+  
 
   constructor() { }
 
@@ -19,6 +19,8 @@ export class GalleryComponent implements OnInit {
     window.onload = function () {
       let newHeight = 30
       let i = 0
+      let lastIndex = 4
+      let parallax_types = ['parallaxSlow', 'parallaxMedium', 'parallaxHigh']
       document.querySelectorAll<HTMLElement>(".imageCard").forEach(element => {
         
 
@@ -31,22 +33,27 @@ export class GalleryComponent implements OnInit {
         card_heights.push(element.clientHeight)
 
         window.addEventListener('scroll',function(){
-          var value = window.scrollY;
+          var value = 0- window.scrollY;
           
           if (element.classList.contains('parallaxHigh')){
-            let movingSpeed = value*0.2
+            let movingSpeed = value*0.14
             element.style.top = `${movingSpeed}px`
           }
           else if (element.classList.contains('parallaxMedium')){
-            let movingSpeed = value*0.1
+            let movingSpeed = value*0.08
             element.style.top = `${movingSpeed}px`
           }
           else if (element.classList.contains('parallaxSlow')){
-            let movingSpeed = value*0.05
+            let movingSpeed = value*0.04
             element.style.top = `${movingSpeed}px`
           }
         })
-
+        let randomIndex = Math.floor(Math.random() * 3)
+        while(randomIndex == lastIndex){
+          randomIndex = Math.floor(Math.random() * 3)
+        }
+        lastIndex = randomIndex
+        element.classList.add(parallax_types[randomIndex])
         i++
       });
     }
