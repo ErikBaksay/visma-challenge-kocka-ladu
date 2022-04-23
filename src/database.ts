@@ -5,6 +5,10 @@ export var images_data = [
     },
     {
         category: "projects",
-        images: ['adresa','adresa']
+        images: ['./assets/images/projects_1.jpg','./assets/images/projects_2.jpg',"./assets/images/projects_3.jpg","./assets/images/projects_4.jpg"]
+    },
+    {
+        category: "tournaments",
+        images:["./assets/images/tournaments_1.jpg","./assets/images/tournaments_2.jpg","./assets/images/tournaments_3.jpg"]
     }
 ]
