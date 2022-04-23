@@ -9,29 +9,21 @@ import { images_data } from 'src/database';
 export class GalleryComponent implements OnInit {
 
   images_data = images_data
-  parallax_types = ['parallaxSlow','parallaxMedium','parallaxHigh']
-  
+  parallax_types = ['parallaxSlow', 'parallaxMedium', 'parallaxHigh']
+
   constructor() { }
 
   ngOnInit(): void {
-
-        function getRandomInt(max:number) {
+    function getRandomInt(max: number) {
       return Math.floor(Math.random() * max);
     }
-    
-    console.log(getRandomInt(30)+50);
-    
-    
+
+    console.log(getRandomInt(30) + 50);
+
     const imageCards = document.getElementsByClassName("imageCard")
-    
-    for (var i = 0; i < imageCards.length; i++){
+
+    for (var i = 0; i < imageCards.length; i++) {
       console.log(imageCards[i]);
-    }  
-    
-    
-    
-
-
+    }
   }
-
 }
