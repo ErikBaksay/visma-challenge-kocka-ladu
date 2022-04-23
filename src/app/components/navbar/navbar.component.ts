@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -7,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  categories = ['Newcomers', 'New Projects', 'Tournaments', 'Sport Challenges', 'Other events']
+  current_category = 'Newcomers'
+
+  constructor( private router : Router) { }
 
   ngOnInit(): void {
   }
@@ -18,5 +22,9 @@ export class NavbarComponent implements OnInit {
     }else{
       menu!.style.display = "none"
     }
+  }
+  
+  chooseCategory(i:number){
+    this.current_category = this.categories[i]
   }
 }

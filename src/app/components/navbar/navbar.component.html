@@ -4,28 +4,9 @@
 </div>
 
 <div id ="collapsableMenu">
-    <div id = "menuElment">
-        <p>Newcomers</p>
-    </div>
-
-    <div id = "menuElment">
-        <p>New Projects</p>
-    </div>
-
-    <div id = "menuElment">
-        <p>Tournaments</p>
-    </div>
-
-    <div id = "menuElment">
-        <p>Sport Challenges</p>
-    </div>
-
-    <div id = "menuElment">
-        <p>Other events</p>
-    </div>
-    
-   
-   
-
-
+    <ng-container *ngFor="let category of categories, let i = index">
+        <div id = "menuElement" (click)="chooseCategory(i)">
+            <p>{{category}}</p>
+        </div>
+    </ng-container>
 </div>

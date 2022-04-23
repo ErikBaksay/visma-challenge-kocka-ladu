@@ -14,8 +14,15 @@ export class GalleryComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    const container = document.getElementById('container');
+    console.log(container);
+    
+    for (let i = 0; i < container!.children.length; i++) {
+      console.log(container!.children[i]);
   }
-    getRandomInt(max:number) {
-      return Math.floor(Math.random() * max);
+
+  }
+    parallaxTypeGenerator(){
+      return this.parallax_types[Math.floor(Math.random()*3)]
     }
 }
