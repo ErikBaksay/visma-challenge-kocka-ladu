@@ -10,5 +10,15 @@ export var images_data = [
     {
         category: "tournaments",
         images:["./assets/images/tournaments_1.jpg","./assets/images/tournaments_2.jpg","./assets/images/tournaments_3.jpg"]
+    },
+    {
+        category: "sportChallenges",
+        images:["./assets/images/sport_1.jpg","./assets/images/sport_2.jpg"]
+    
+    },
+    {
+        category: "otherEvents",
+        images:["./assets/images/other_1.jpg","./assets/images/other_2.jpg"]
+
     }
 ]
