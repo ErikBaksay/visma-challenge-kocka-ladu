@@ -1,16 +1,26 @@
-{
-    "date": "2022-04-12",
-    "category": "tournaments",
-    "text": "🤜 24 hráčov , 2 mesiace a jeden víťaz. 🤛\nNaši kolegovia dokázali, že im nie sú cudzie ani šípky mimo klávesnice ⌨️ a po napínavom (takmer hodinovom) finále získal trofej vynikajúci Ivo. 🎯🏆\nCongrats 🥳\n#visma #vismapeople #vismasport #kosiceitvalley",
-    "photos": [
-        "278087696_505449504329536_5060924229721684936_n.jpg",
-        "278178860_505449570996196_5806870071414998953_n.jpg",
-        "278106779_505449500996203_5721044178776235917_n.jpg",
-        "277816805_505449580996195_4434542150188278046_n.jpg",
-        "278086697_505449560996197_4755042722826639526_n.jpg",
-        "278257855_505449427662877_2770240387944963739_n.jpg",
-        "278332198_505449507662869_1426084136492771499_n.jpg",
-        "278070914_505449404329546_4706046617192673033_n.jpg",
-        "278154848_505449464329540_1438810329669660891_n.jpg"
-    ]
-}
+[
+    {
+        "date": "2022-04-12",
+        "category": "tournaments",
+        "text": "🤜 24 hráčov , 2 mesiace a jeden víťaz. 🤛\nNaši kolegovia dokázali, že im nie sú cudzie ani šípky mimo klávesnice ⌨️ a po napínavom (takmer hodinovom) finále získal trofej vynikajúci Ivo. 🎯🏆\nCongrats 🥳\n#visma #vismapeople #vismasport #kosiceitvalley",
+        "photos": [
+            "278087696_505449504329536_5060924229721684936_n.jpg",
+            "278178860_505449570996196_5806870071414998953_n.jpg",
+            "278106779_505449500996203_5721044178776235917_n.jpg",
+            "277816805_505449580996195_4434542150188278046_n.jpg",
+            "278086697_505449560996197_4755042722826639526_n.jpg",
+            "278257855_505449427662877_2770240387944963739_n.jpg",
+            "278332198_505449507662869_1426084136492771499_n.jpg",
+            "278070914_505449404329546_4706046617192673033_n.jpg",
+            "278154848_505449464329540_1438810329669660891_n.jpg"
+        ]
+    },
+    {
+        "date": "2022-04-04",
+        "category": "newcomers",
+        "text": "Toto sú oni - nové tváre v našom tíme. 👩👨‍🦰\n👉 Milovníci turistiky, behu a mačiek, hejteri billboardov a paradajok. 🍅 Nájde sa medzi nimi aj jeden Kábel, ktorý má rád kováčstvo a hubár, ktorý huby neje. 👈\nA napriek tomu, že sú z rozdielnych kútov Slovenska jedno ich spája - láska k svetu IT. 🖥\n#visma #vismapeople #bettertogether",
+        "photos": [
+            "277754067_500063038201516_3656507460779878701_n.jpg"
+        ]
+    }
+]
