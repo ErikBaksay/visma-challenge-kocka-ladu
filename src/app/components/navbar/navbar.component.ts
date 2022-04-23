@@ -11,5 +11,12 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  menuOpen(){
+    let menu = document.getElementById("collapsableMenu")
+    if (menu!.style.display == "none"){
+      menu!.style.display = "block"
+    }else{
+      menu!.style.display = "none"
+    }
+  }
 }

@@ -1,5 +1,5 @@
 <div class="container">
     <div class="imageCard" *ngFor="let image of images_data[0].images">
-        <img class="{{parallax_types[0]}}" src="{{image}}" alt="">
+        <img [ngClass]="parallaxTypeGenerator(1)" src="{{image}}" alt="">
     </div>
 </div>
