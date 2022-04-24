@@ -20,5 +20,11 @@ export var images_data = [
         category: "other-events",
         images:["./assets/images/other_1.jpg","./assets/images/other_2.jpg","./assets/images/visma_plaz_office-1.jpg","./assets/images/visma_plaz_office-2.jpg","./assets/images/visma_plaz_office-3.jpg","./assets/images/visma_plaz_office-4.jpg","./assets/images/visma_plaz_office-5.jpg"]
 
+
+    },
+    {
+        category: "create",
+        images:[]
     }
+
 ]
