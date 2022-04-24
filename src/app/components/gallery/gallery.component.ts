@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { images_data } from 'src/database';
 
 @Component({
@@ -9,11 +10,26 @@ import { images_data } from 'src/database';
 export class GalleryComponent implements OnInit {
 
   images_data = images_data
+  current_route = 'newcomers'
+
+  constructor(private router : Router, private route: ActivatedRoute) {
+    router.events.subscribe((val)=>{
+      if(val instanceof NavigationEnd){
+        if (this.current_route != this.route.snapshot.url[0].path){
+          this.current_route = this.route.snapshot.url[0].path
+          
+        }
+        
+        
+      }
+    })
+   }
   
 
-  constructor() { }
-
   ngOnInit(): void {
+    console.log(this.route.snapshot.url[0].path)
+    
+
     var card_heights : number[] = []
 
     window.onload = function () {
@@ -57,11 +73,8 @@ export class GalleryComponent implements OnInit {
         i++
       });
     }
-
   }
   getRandomInt(max: number) {
     return Math.floor(Math.random() * max);
   }
-
-
 }

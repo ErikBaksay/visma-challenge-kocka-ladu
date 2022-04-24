@@ -10,9 +10,11 @@ const routes: Routes = [
     component: UploadComponent
   },
   {
-    path: "",
+    path: "**",
     component: GalleryComponent
-  },
+  }
+  
+
 ];
 
 @NgModule({

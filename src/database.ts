@@ -12,12 +12,12 @@ export var images_data = [
         images:["./assets/images/tournaments_1.jpg","./assets/images/tournaments_2.jpg","./assets/images/tournaments_3.jpg"]
     },
     {
-        category: "sportChallenges",
+        category: "sport-challenges",
         images:["./assets/images/sport_1.jpg","./assets/images/sport_2.jpg"]
     
     },
     {
-        category: "otherEvents",
+        category: "other-events",
         images:["./assets/images/other_1.jpg","./assets/images/other_2.jpg","./assets/images/visma_plaz_office-1.jpg","./assets/images/visma_plaz_office-2.jpg","./assets/images/visma_plaz_office-3.jpg","./assets/images/visma_plaz_office-4.jpg","./assets/images/visma_plaz_office-5.jpg"]
 
     }
