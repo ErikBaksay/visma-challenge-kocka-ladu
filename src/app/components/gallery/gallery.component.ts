@@ -103,6 +103,7 @@ export class GalleryComponent implements OnInit {
     element?.classList.remove('animate__fadeInUp')
     // element?.classList.add('highlightedCard')
     const topElement = window.innerHeight * 0.2 - element!.getBoundingClientRect().top;
+    element!.style.transition = "all 0.7s ease-in-out"
     element!.style.top = `${topElement}px`
     element!.style.right = '0px'
   }
