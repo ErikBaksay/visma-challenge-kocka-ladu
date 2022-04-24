@@ -8,15 +8,13 @@ import mysql.connector
 # temporarily
 USER_ID = 1
 
-request_ =\
-  {
-    "category": "",
-    "title": "",
-    "description": ""
-  }
-
 
 def get_category(category_string: str):
+    """
+    Maps category string to category number related to DB category table
+    :param category_string: one out of five strings known for database
+    :return: integer defining category
+    """
     category_id = -1
     category_id = constants.POST_CATEGORIES.NEWCOMERS if category_string == "newcomers" else category_id
     category_id = constants.POST_CATEGORIES.NEW_PROJECTS if category_string == "new-projects" else category_id
@@ -28,6 +26,12 @@ def get_category(category_string: str):
 
 
 def upload(user_request: request, mysql_conn: mysql.connector) -> Response:
+    """
+    Uploads new posts to database based on request body. More about DB in README.md in this folder
+    :param user_request: Flask request containing information for upload
+    :param mysql_conn: MySQL pooled connection
+    :return: Flask response
+    """
     if user_request.method != "POST":
         response_dict = functions.create_response(constants.RESPONSE_TYPES.ERROR, "method_not_allowed", "This method is not allowed", 405)
         return functions.respond(response_dict)
@@ -87,6 +91,13 @@ def upload(user_request: request, mysql_conn: mysql.connector) -> Response:
 
 
 def get(user_request: request, mysql_conn: mysql.connector, category: str) -> Response:
+    """
+    Returns posts from database based on category. More about DB in README.md in this folder.
+    :param user_request: Flask request containing information for return
+    :param mysql_conn: MySQL pooled connection
+    :param category: one of the five categories
+    :return: Flask response
+    """
     if user_request.method != "GET":
         response_dict = functions.create_response(constants.RESPONSE_TYPES.ERROR, "method_not_allowed", "This method is not allowed", 405)
         return functions.respond(response_dict)
@@ -118,8 +129,9 @@ def get(user_request: request, mysql_conn: mysql.connector, category: str) -> Re
     return functions.respond(response_dict)
 
 
+"""
 # TODO: register, login
 def register():
     response_to_user = Response()
     response_to_user.content_type = "application/json"
-
+"""

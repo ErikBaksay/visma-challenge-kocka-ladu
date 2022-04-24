@@ -8,6 +8,13 @@ import mysql.connector
 
 
 def create_image_uuid(image, with_check=True) -> str:
+    """
+    Function creates Unique Unit IDentifier for provided image. If set, it tries more times to create UUID to be unique.
+    If it cannot be generated, returns empty string.
+    :param image: image data of 'form-data' type
+    :param with_check: If true, generates UUID until it finds or up to constant value times - which happens first
+    :return: path to image relative to app (root) folder
+    """
     tries = 1
     if with_check:
         tries = constants.UUID_CREATION_TRIES
@@ -35,6 +42,15 @@ def create_image_uuid(image, with_check=True) -> str:
 
 
 def create_response(response_type: int, errmsg="", error="", message="", status_code=501) -> dict:
+    """
+    Creates JSON-type response based on entered values.
+    :param response_type: constant representing state of the response, whether error or the ok status
+    :param errmsg: string with error code abbreviation
+    :param error: human-readable string explaining errmsg
+    :param message: data in string, list or dictionary with requested values
+    :param status_code: integer representing HTTP status code of the request
+    :return: dictionary with in-project standardized response layout
+    """
     response_dict = constants.DEFAULT_RESPONSE.copy()
     if response_type == constants.RESPONSE_TYPES.OK:
         response_dict["message"] = message
@@ -49,6 +65,11 @@ def create_response(response_type: int, errmsg="", error="", message="", status_
 
 
 def respond(response_dict: dict) -> Response:
+    """
+    Translates dictionary with the standardized response to Flask Response
+    :param response_dict: dictionary containing response
+    :return: Flask Response
+    """
     response_to_user = Response()
     response_to_user.content_type = "application/json"
     response_to_user.status_code = response_dict["status_code"]
@@ -58,6 +79,12 @@ def respond(response_dict: dict) -> Response:
 
 
 def optimize_images(url: str, photo_id: str) -> None:
+    """
+    Function helping to optimize images using resizing. There are Bootstrap-standardized breakpoints of widths.
+    :param url: path to image relative to app (root) directory
+    :param photo_id: photo ID used to authorize image in terms of database communication
+    :return: None - nothing
+    """
     directory = os.path.dirname(url)
     file = os.path.basename(url)
     mysql_conn = mysql.connector.connect(

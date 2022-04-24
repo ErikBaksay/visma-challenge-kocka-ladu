@@ -17,11 +17,6 @@ not_found_response = functions.create_response(constants.RESPONSE_TYPES.ERROR, e
 not_found_response = functions.respond(not_found_response)
 
 
-@app.route("/")
-def hello_world():
-    return "AA"
-
-
 @app.route('/api/<user_request>', defaults={'category': None}, methods=["GET", "POST"])
 @app.route("/api/<user_request>/<category>", methods=["GET", "POST"])
 def api(user_request, category):

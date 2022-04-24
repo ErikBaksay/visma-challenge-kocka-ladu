@@ -10,7 +10,7 @@ URL:
 REQUEST BODY of 'form-data' type:
 title (string):          The title or headline of the post
 description (string):    Description of the post
-category (string):       One of the five categories (newcomers, projects, tournaments, sport, other)
+category (string):       One of the five categories (newcomers, new-projects, tournaments, sport-challenges, other-events)
 pictures (files):        One or more images belonging to the post. First will be shown as a thumbnail    
 ```
 
