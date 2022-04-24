@@ -29,4 +29,11 @@ DB_PASSWORD = env_values["DB_PASSWORD"]
 DB_PORT = int(env_values["DB_PORT"])
 DB_DATABASE = env_values["DB_DATABASE"]
 
+DEFAULT_RESPONSE = {
+    "status": "OK",
+    "errmsg": "",
+    "error": "",
+    "status_code": 200
+}
+
 
