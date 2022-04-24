@@ -45,6 +45,10 @@ def respond(response_dict: dict) -> Response:
 
 
 def upload(user_request: request, mysql_conn: MySQL) -> Response:
+    if request.method != "POST":
+        response_dict = create_response(constants.RESPONSE_TYPES.ERROR, "method_not_allowed", "This method is not allowed", 405)
+        return respond(response_dict)
+
     title = mysql_conn.connection.escape_string(user_request.form.get("title")).decode("utf-8")[:40]
     description = mysql_conn.connection.escape_string(user_request.form.get("description")).decode("utf-8")
     category = mysql_conn.connection.escape_string(user_request.form.get("category")).decode("utf-8")
