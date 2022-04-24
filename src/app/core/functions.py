@@ -4,6 +4,7 @@ from . import constants
 import os
 import json
 from PIL import Image
+import mysql.connector
 
 
 def create_image_uuid(image, with_check=True) -> str:
@@ -58,12 +59,26 @@ def respond(response_dict: dict) -> Response:
 def optimize_images(url: str, photo_id: str) -> None:
     directory = os.path.dirname(url)
     file = os.path.basename(url)
+    mysql_conn = mysql.connector.connect(
+        user=constants.DB_USER,
+        password=constants.DB_PASSWORD,
+        host=constants.DB_HOST,
+        database=constants.DB_DATABASE,
+        port=constants.DB_PORT)
 
     image = Image.open(url)
+    max_width = 0
     for width in constants.WIDTH_BREAKPOINTS:
         if image.size[0] >= width:
+            max_width = width
             width_percent = (width / float(image.size[0]))
             height = int((float(image.size[1]) * float(width_percent)))
             img = image.copy()
             img = img.resize((width, height), Image.ANTIALIAS)
             img.save(os.path.join(directory, str(width) + "_" + file))
+
+    cursor = mysql_conn.cursor()
+    cursor.execute(f"UPDATE photos SET max_width = '{max_width}' WHERE id='{photo_id}';")
+    mysql_conn.commit()
+    cursor.close()
+    mysql_conn.close()

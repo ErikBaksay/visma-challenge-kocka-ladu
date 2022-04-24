@@ -105,13 +105,13 @@ def get(user_request: request, mysql_conn: mysql.connector, category: str) -> Re
         response_dict[str(response[0])] = {"title": response[1], "description": response[2], "uploaded_time": response[3].strftime("%Y-%m-%d, %H:%M:%S"), "images": []}
 
     ids_str = ", ".join(list(response_dict.keys()))
-    cursor.execute(f"SELECT path, alt_text, p.id FROM photos ph, posts p WHERE ph.id IN ({ids_str}) AND p.id = ph.post_id ORDER BY p.uploaded DESC, p.id DESC LIMIT 10;")
+    cursor.execute(f"SELECT ph.path, ph.alt_text, ph.max_width, p.id FROM photos ph, posts p WHERE p.id IN ({ids_str}) AND p.id = ph.post_id ORDER BY p.uploaded DESC, p.id DESC, ph.id;")
     responses = cursor.fetchall()
 
     cursor.close()
 
     for response in responses:
-        response_dict[str(response[2])]["images"].append([response[0], response[1]])
+        response_dict[str(response[3])]["images"].append([response[0], response[1], response[2]])
 
     response_dict = functions.create_response(constants.RESPONSE_TYPES.OK, message=list(response_dict.values()))
     return functions.respond(response_dict)

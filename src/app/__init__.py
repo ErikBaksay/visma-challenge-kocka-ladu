@@ -13,7 +13,7 @@ mysql_conn = mysql.connector.connect(
     database=constants.DB_DATABASE,
     port=constants.DB_PORT)
 
-not_found_response = functions.create_response(constants.RESPONSE_TYPES.ERROR, "not_found", "This resource was not found.", 404)
+not_found_response = functions.create_response(constants.RESPONSE_TYPES.ERROR, errmsg="not_found", error="This resource was not found.", status_code=404)
 not_found_response = functions.respond(not_found_response)
 
 
