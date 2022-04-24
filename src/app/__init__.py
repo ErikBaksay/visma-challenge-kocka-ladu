@@ -12,9 +12,6 @@ app.config['MYSQL_PASSWORD'] = constants.DB_PASSWORD
 app.config['MYSQL_DB'] = constants.DB_DATABASE
 app.config['MYSQL_PORT'] = constants.DB_PORT
 
-
-{"post_title", "description", "date", "images"}
-
 mysql = MySQL(app)
 
 not_found_response = functions.create_response(constants.RESPONSE_TYPES.ERROR, "not_found", "This resource was not found.", 404)
@@ -31,6 +28,8 @@ def hello_world():
 def api(user_request, category):
     if user_request == "upload":
         return core_api.upload(request, mysql)
+    if user_request == "get":
+        return core_api.get(request, mysql, category)
     return not_found_response
 
 

@@ -27,7 +27,7 @@ def get_category(category_string: str):
 
 
 def upload(user_request: request, mysql_conn: MySQL) -> Response:
-    if request.method != "POST":
+    if user_request.method != "POST":
         response_dict = functions.create_response(constants.RESPONSE_TYPES.ERROR, "method_not_allowed", "This method is not allowed", 405)
         return functions.respond(response_dict)
 
@@ -70,6 +70,37 @@ def upload(user_request: request, mysql_conn: MySQL) -> Response:
     cursor.close()
 
     response_dict = functions.create_response(constants.RESPONSE_TYPES.OK)
+    return functions.respond(response_dict)
+
+
+def get(user_request: request, mysql_conn: MySQL, category: str) -> Response:
+    if user_request.method != "GET":
+        response_dict = functions.create_response(constants.RESPONSE_TYPES.ERROR, "method_not_allowed", "This method is not allowed", 405)
+        return functions.respond(response_dict)
+
+    category_id = get_category(category)
+    if category_id == -1:
+        response_dict = functions.create_response(constants.RESPONSE_TYPES.ERROR, "category_not_set", "Post category was not set.", 400)
+        return functions.respond(response_dict)
+
+    cursor = mysql_conn.connection.cursor()
+    cursor.execute(f"SELECT id, title, description, uploaded FROM posts WHERE category_id='{category_id}' ORDER BY uploaded DESC, id DESC LIMIT 10;")
+    responses = cursor.fetchall()
+
+    response_dict = {}
+    for response in responses:
+        response_dict[str(response[0])] = {"title": response[1], "description": response[2], "uploaded_time": response[3].strftime("%Y-%m-%d, %H:%M:%S"), "images": []}
+
+    ids_str = ", ".join(list(response_dict.keys()))
+    cursor.execute(f"SELECT path, alt_text, p.id FROM photos ph, posts p WHERE ph.id IN ({ids_str}) AND p.id = ph.post_id ORDER BY p.uploaded DESC, p.id DESC LIMIT 10;")
+    responses = cursor.fetchall()
+
+    cursor.close()
+
+    for response in responses:
+        response_dict[str(response[2])]["images"].append([response[0], response[1]])
+
+    response_dict = functions.create_response(constants.RESPONSE_TYPES.OK, message=list(response_dict.values()))
     return functions.respond(response_dict)
 
 
