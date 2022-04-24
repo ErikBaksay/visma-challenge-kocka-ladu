@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UploadComponent implements OnInit {
 
+  categories = ['Newcomers', 'New Projects', 'Tournaments', 'Sport Challenges', 'Other events']
+  routes = ['newcomers', 'new-projects', 'tournaments', 'sport-challenges', 'other-events']
+
   constructor() { }
 
   ngOnInit(): void {

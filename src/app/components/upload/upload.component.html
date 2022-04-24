@@ -8,11 +8,9 @@
         <div class="b">
             <label for="category">Category</label><br>
             <select id="category" name="category" required>
-                <option value="newcomers">Newcomers</option>
-                <option value="projects">New Projects</option>
-                <option value="tournaments">Tournaments</option>
-                <option value="sport">Sport Challenges</option>
-                <option value="other">Other events</option>
+                <ng-container *ngFor="let category of categories, let i = index">
+                    <option value="{{routes[i]}}">{{category}}</option>
+                </ng-container>
             </select><br>
         </div>
 
