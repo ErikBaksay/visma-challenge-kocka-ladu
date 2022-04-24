@@ -1,21 +1,33 @@
-<form method="post" action="/api/upload" enctype="multipart/form-data">
-    <label for="category">Name</label><br>
-    <input type="text" id="name" name="name" required><br>
+<div class="wrapper">
+    <form class="grid" method="post" action="/api/upload" enctype="multipart/form-data">
+        <div class="a">
+            <label for="category">Name</label><br>
+            <input type="text" id="name" name="name" required><br>
+        </div>
 
-    <label for="category">Category</label><br>
-    <select id="category" name="category" required>
-        <option value="newcomers">Newcomers</option>
-        <option value="projects">New Projects</option>
-        <option value="tournaments">Tournaments</option>
-        <option value="sport">Sport Challenges</option>
-        <option value="other">Other events</option>
-    </select><br>
+        <div class="b">
+            <label for="category">Category</label><br>
+            <select id="category" name="category" required>
+                <option value="newcomers">Newcomers</option>
+                <option value="projects">New Projects</option>
+                <option value="tournaments">Tournaments</option>
+                <option value="sport">Sport Challenges</option>
+                <option value="other">Other events</option>
+            </select><br>
+        </div>
 
-    <label for="start">Date</label><br>
-    <input type="date" id="start" name="start" required><br>
+        <div class="c">
+            <label for="start">Date</label><br>
+            <input type="date" id="start" name="start" required><br>
+        </div>
 
-    <label for="pictures">Pictures</label><br>
-    <input type="file" id="pictures" name="pictures[]" accept="image/*" multiple required><br>
+        <div class="d">
+            <label for="pictures">Pictures</label><br>
+            <input type="file" id="pictures" name="pictures[]" accept="image/*" multiple required><br>
+        </div>
 
-    <input type="submit" value="Add new post">
-</form>
+        <div class="e">
+            <input type="submit" value="Add new post">
+        </div>
+    </form>
+</div>

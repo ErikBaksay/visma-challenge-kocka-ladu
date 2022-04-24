@@ -19,7 +19,7 @@ def hello_world():
     return "AA"
 
 
-@app.route("/api/<user_request>", methods=["POST"])
+@app.route("/api/<user_request>", methods=["GET", "POST"])
 def api(user_request):
     if user_request == "upload":
         return core_api.upload(request, mysql)
