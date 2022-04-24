@@ -1,3 +1,4 @@
+import threading
 from flask import Response, request
 from . import functions
 from . import constants
@@ -62,6 +63,8 @@ def upload(user_request: request, mysql_conn: MySQL) -> Response:
 
         with open(uuid_path, "wb") as img:
             img.write(image.stream.read())
+
+        threading.Thread(target=functions.optimize_images, args=(uuid_path, )).start()
 
         cursor.execute(f"INSERT INTO photos(creator, path, alt_text, post_id) VALUES ('{USER_ID}', '{uuid}', "
                        f"'alt_text', '{post_id}')")
