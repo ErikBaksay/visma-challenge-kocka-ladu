@@ -105,8 +105,9 @@ def get(user_request: request, mysql_conn: mysql.connector, category: str) -> Re
         response_dict[str(response[0])] = {"title": response[1], "description": response[2], "uploaded_time": response[3].strftime("%Y-%m-%d, %H:%M:%S"), "images": []}
 
     ids_str = ", ".join(list(response_dict.keys()))
-    cursor.execute(f"SELECT ph.path, ph.alt_text, ph.max_width, p.id FROM photos ph, posts p WHERE p.id IN ({ids_str}) AND p.id = ph.post_id ORDER BY p.uploaded DESC, p.id DESC, ph.id;")
-    responses = cursor.fetchall()
+    if ids_str:
+        cursor.execute(f"SELECT ph.path, ph.alt_text, ph.max_width, p.id FROM photos ph, posts p WHERE p.id IN ({ids_str}) AND p.id = ph.post_id ORDER BY p.uploaded DESC, p.id DESC, ph.id;")
+        responses = cursor.fetchall()
 
     cursor.close()
 
