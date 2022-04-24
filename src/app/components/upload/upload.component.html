@@ -1,8 +1,8 @@
 <div class="wrapper">
-    <form class="grid" method="post" action="/api/upload" enctype="multipart/form-data">
+    <form class="grid" method="post" action="http://10.0.5.151/api/upload" enctype="multipart/form-data">
         <div class="a">
-            <label for="category">Name</label><br>
-            <input type="text" id="name" name="name" required><br>
+            <label for="category">Title</label><br>
+            <input type="text" id="title" name="title" required><br>
         </div>
 
         <div class="b">
@@ -21,12 +21,12 @@
 
         <div class="d">
             <label for="start">Description</label><br>
-            <textarea type="text" id="description" rows="7" required></textarea>
+            <textarea type="text" id="description" name="description" rows="7" required></textarea>
         </div>
 
         <div class="e">
             <label for="pictures">Pictures</label><br>
-            <input type="file" id="pictures" name="pictures[]" accept="image/*" multiple required><br>
+            <input type="file" id="pictures" name="pictures" accept="image/*" multiple required><br>
         </div>
 
         <div class="f">
