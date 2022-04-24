@@ -33,6 +33,7 @@ DEFAULT_RESPONSE = {
     "status": "OK",
     "errmsg": "",
     "error": "",
+    "message": "",
     "status_code": 200
 }
 

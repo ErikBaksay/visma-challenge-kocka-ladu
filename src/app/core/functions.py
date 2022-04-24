@@ -32,15 +32,16 @@ def create_image_uuid(image, with_check=True) -> str:
     return uuid
 
 
-def create_response(response_type: int, msg="", message="", status_code=501) -> dict:
+def create_response(response_type: int, errmsg="", error="", message="", status_code=501) -> dict:
     response_dict = constants.DEFAULT_RESPONSE.copy()
     if response_type == constants.RESPONSE_TYPES.OK:
+        response_dict["message"] = message
         return response_dict
 
     if response_type == constants.RESPONSE_TYPES.ERROR or True:
         response_dict["status"] = "error"
-        response_dict["errmsg"] = msg
-        response_dict["error"] = message
+        response_dict["errmsg"] = errmsg
+        response_dict["error"] = error
         response_dict["status_code"] = status_code
         return response_dict
 
