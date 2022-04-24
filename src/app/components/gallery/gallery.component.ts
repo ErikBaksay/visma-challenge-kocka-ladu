@@ -91,11 +91,18 @@ export class GalleryComponent implements OnInit {
   openImage(i:number){
     for(let j = 0; j < i; j++){
       let element = document.getElementById('imageCard'+j)
-      element!.style.visibility = 'hidden'
+      element?.classList.remove('animate__fadeInUp')
+      element?.classList.add('animate__fadeOutUpBig')
     }
     for(let k = i+1; k < document.getElementsByClassName('imageCard').length;k++){
       let element = document.getElementById('imageCard'+k)
-      element!.style.visibility = 'hidden'
+      element?.classList.remove('animate__fadeInUp')
+      element?.classList.add('animate__fadeOutDownBig')
     }
+    let element = document.getElementById('imageCard'+i)
+    element?.classList.remove('animate__fadeInUp')
+    // element?.classList.add('highlightedCard')
+    element!.style.top = '0px'
+    element!.style.right = '0px'
   }
 }
