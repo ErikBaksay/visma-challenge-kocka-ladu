@@ -1,3 +1,4 @@
+import { DataServiceService } from './../../services/data-service.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { images_data } from 'src/database';
@@ -13,47 +14,41 @@ export class GalleryComponent implements OnInit {
   current_route = 'newcomers'
   current_route_id = 0
 
-  constructor(private router : Router, private route: ActivatedRoute) {
+  constructor(private router : Router, private route: ActivatedRoute, private dataService : DataServiceService) {
+    dataService.getData().subscribe(data =>{
+      console.log(data)
+    })
     router.events.subscribe((val)=>{
       if(val instanceof NavigationEnd){
         if (this.current_route != this.route.snapshot.url[0].path){
           this.current_route = this.route.snapshot.url[0].path
-          console.log(this.images_data.length);
           for(let i = 0; i<this.images_data.length; i+=1){
             if(this.images_data[i].category==this.current_route){
               this.current_route_id = i
-
-                this.ngOnInit()
-
-            
-            }
-        
+              
+            }     
           }
-          
         }
-        
-        
       }
     })
    }
   
 
   ngOnInit(): void {
-    onInitFunction()
-    var card_heights : number[] = []
+    window.addEventListener('DOMContentLoaded', (event) => {
+      console.log('DOM fully loaded and parsed');
+    });
     // onInitFunction()
     window.onload = function () {
-      onInitFunction()
-    }
-    function onInitFunction(){
-      console.log('gello');
-      
       let newHeight = 30
       let i = 0
       let lastIndex = 4
       let parallax_types = ['parallaxSlow', 'parallaxMedium', 'parallaxHigh']
       document.querySelectorAll<HTMLElement>(".imageCard").forEach(element => {
+        console.log(element);
         
+        element.style.visibility = 'visible'
+        element.classList.add('animate__fadeInUp')
 
         let newHorizontalChange = Math.floor(Math.random() * 7)+4; 
         if (i%2 == 0){
@@ -61,8 +56,6 @@ export class GalleryComponent implements OnInit {
         }    
         newHeight+=Math.floor(Math.random() * 30);
         element.setAttribute('style', `position:relative; top:${newHeight}px; right:${newHorizontalChange}vw`)
-        card_heights?.push(element.clientHeight)
-
         window.addEventListener('scroll',function(){
           var value = 0- window.scrollY;
           
@@ -94,5 +87,15 @@ export class GalleryComponent implements OnInit {
   }
   onInitFunctionCall(){
     this.ngOnInit()
+  }
+  openImage(i:number){
+    for(let j = 0; j < i; j++){
+      let element = document.getElementById('imageCard'+j)
+      element!.style.visibility = 'hidden'
+    }
+    for(let k = i+1; k < document.getElementsByClassName('imageCard').length;k++){
+      let element = document.getElementById('imageCard'+k)
+      element!.style.visibility = 'hidden'
+    }
   }
 }

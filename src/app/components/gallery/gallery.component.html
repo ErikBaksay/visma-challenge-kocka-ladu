@@ -1,6 +1,10 @@
 <div id="container">
-    <div class="imageCard" *ngFor="let image of images_data[current_route_id].images">
+    <div 
+        id="imageCard{{i}}"
+        class="imageCard animate__animated" style="visibility: hidden;"
+        *ngFor="let image of images_data[current_route_id].images, 
+        let i = index"
+        (click)="openImage(i)">
         <img src="{{image}}" alt="">
     </div>
 </div>
-<div onload="onInitFunctionCall()"></div>
