@@ -1,5 +1,6 @@
 <div id="container">
-    <div class="imageCard" *ngFor="let image of images_data[0].images">
+    <div class="imageCard" *ngFor="let image of images_data[current_route_id].images">
         <img src="{{image}}" alt="">
     </div>
 </div>
+<div onload="onInitFunctionCall()"></div>

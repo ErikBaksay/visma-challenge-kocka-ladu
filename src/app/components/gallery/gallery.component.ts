@@ -11,12 +11,24 @@ export class GalleryComponent implements OnInit {
 
   images_data = images_data
   current_route = 'newcomers'
+  current_route_id = 0
 
   constructor(private router : Router, private route: ActivatedRoute) {
     router.events.subscribe((val)=>{
       if(val instanceof NavigationEnd){
         if (this.current_route != this.route.snapshot.url[0].path){
           this.current_route = this.route.snapshot.url[0].path
+          console.log(this.images_data.length);
+          for(let i = 0; i<this.images_data.length; i+=1){
+            if(this.images_data[i].category==this.current_route){
+              this.current_route_id = i
+
+                this.ngOnInit()
+
+            
+            }
+        
+          }
           
         }
         
@@ -27,12 +39,15 @@ export class GalleryComponent implements OnInit {
   
 
   ngOnInit(): void {
-    console.log(this.route.snapshot.url[0].path)
-    
-
+    onInitFunction()
     var card_heights : number[] = []
-
+    // onInitFunction()
     window.onload = function () {
+      onInitFunction()
+    }
+    function onInitFunction(){
+      console.log('gello');
+      
       let newHeight = 30
       let i = 0
       let lastIndex = 4
@@ -46,7 +61,7 @@ export class GalleryComponent implements OnInit {
         }    
         newHeight+=Math.floor(Math.random() * 30);
         element.setAttribute('style', `position:relative; top:${newHeight}px; right:${newHorizontalChange}vw`)
-        card_heights.push(element.clientHeight)
+        card_heights?.push(element.clientHeight)
 
         window.addEventListener('scroll',function(){
           var value = 0- window.scrollY;
@@ -73,8 +88,11 @@ export class GalleryComponent implements OnInit {
         i++
       });
     }
-  }
+  } 
   getRandomInt(max: number) {
     return Math.floor(Math.random() * max);
+  }
+  onInitFunctionCall(){
+    this.ngOnInit()
   }
 }

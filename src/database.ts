@@ -4,7 +4,7 @@ export var images_data = [
         images: ['./assets/images/newcomers_1.jpg','./assets/images/newcomers_2.jpg','./assets/images/newcomers_3.jpg','./assets/images/newcomers_4.jpg','./assets/images/newcomers_5.jpg']
     },
     {
-        category: "projects",
+        category: "new-projects",
         images: ['./assets/images/projects_1.jpg','./assets/images/projects_2.jpg',"./assets/images/projects_3.jpg","./assets/images/projects_4.jpg"]
     },
     {
