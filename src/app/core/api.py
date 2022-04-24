@@ -15,6 +15,17 @@ request_ =\
   }
 
 
+def get_category(category_string: str):
+    category_id = -1
+    category_id = constants.POST_CATEGORIES.NEWCOMERS if category_string == "newcomers" else category_id
+    category_id = constants.POST_CATEGORIES.NEW_PROJECTS if category_string == "projects" else category_id
+    category_id = constants.POST_CATEGORIES.TOURNAMENTS if category_string == "tournaments" else category_id
+    category_id = constants.POST_CATEGORIES.SPORT_CHALLENGES if category_string == "sport" else category_id
+    category_id = constants.POST_CATEGORIES.OTHER_EVENTS if category_string == "other" else category_id
+
+    return category_id
+
+
 def upload(user_request: request, mysql_conn: MySQL) -> Response:
     if request.method != "POST":
         response_dict = functions.create_response(constants.RESPONSE_TYPES.ERROR, "method_not_allowed", "This method is not allowed", 405)
@@ -24,12 +35,7 @@ def upload(user_request: request, mysql_conn: MySQL) -> Response:
     description = mysql_conn.connection.escape_string(user_request.form.get("description")).decode("utf-8")
     category = mysql_conn.connection.escape_string(user_request.form.get("category")).decode("utf-8")
 
-    category_id = -1
-    category_id = constants.POST_CATEGORIES.NEWCOMERS if category == "newcomers" else category_id
-    category_id = constants.POST_CATEGORIES.NEW_PROJECTS if category == "projects" else category_id
-    category_id = constants.POST_CATEGORIES.TOURNAMENTS if category == "tournaments" else category_id
-    category_id = constants.POST_CATEGORIES.SPORT_CHALLENGES if category == "sport" else category_id
-    category_id = constants.POST_CATEGORIES.OTHER_EVENTS if category == "other" else category_id
+    category_id = get_category(category)
 
     if category_id == -1:
         response_dict = functions.create_response(constants.RESPONSE_TYPES.ERROR, "category_not_set", "Post category was not set.", 400)
