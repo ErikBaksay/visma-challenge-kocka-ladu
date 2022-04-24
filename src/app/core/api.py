@@ -113,7 +113,7 @@ def get(user_request: request, mysql_conn: mysql.connector, category: str) -> Re
 
     response_dict = {}
     for response in responses:
-        response_dict[str(response[0])] = {"title": response[1], "description": response[2], "uploaded_time": response[3].strftime("%Y-%m-%d, %H:%M:%S"), "images": []}
+        response_dict[str(response[0])] = {"title": response[1], "description": response[2], "uploaded_time": response[3].strftime("%Y-%m-%d"), "images": []}
 
     ids_str = ", ".join(list(response_dict.keys()))
     if ids_str:
