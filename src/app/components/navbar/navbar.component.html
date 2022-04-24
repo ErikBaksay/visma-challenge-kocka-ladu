@@ -1,7 +1,9 @@
-<div id="navbarDiv">
-    <img id="logo" src = "./assets/icons/visma_logo.webp" alt="Logo"/>
-    <img id="menu" src = "./assets/icons/menu_FILL0_wght400_GRAD0_opsz48.svg" alt="Menu" (click)="menuOpen()"/>
-</div>
+<a href="/">
+    <div id="navbarDiv">
+        <img id="logo" src = "./assets/icons/visma_logo.webp" alt="Logo"/>
+        <img id="menu" src = "./assets/icons/menu_FILL0_wght400_GRAD0_opsz48.svg" alt="Menu" (click)="menuOpen()"/>
+    </div>
+</a>
 
 <div id ="collapsableMenu">
     <ng-container *ngFor="let category of categories, let i = index">
