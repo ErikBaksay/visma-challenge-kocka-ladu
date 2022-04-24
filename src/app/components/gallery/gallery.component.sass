@@ -17,12 +17,52 @@
         display: none
         width: 100%
         #mainTitle
-            background-color: red
+            height: 7vh
+            width: 100vw
+            display: flex
+            justify-content: center
+            align-items: flex-end
+
         #date
-            background-color: blue
+            height: 5vh
+            width: 100vw
+            display: flex
+            justify-content: center
+            align-items: flex-start
         #mainImage
-            background-color: purple
+            max-width: 80vw
+            max-height: 80vh
+            display: flex
+            justify-self: center
+            img
+                max-width: 80vw
+                max-height: 80vh
         #text
-            background-color: yellow
+            padding: 40px
+            font-weight: 500
+            width: 80vw
+            justify-self: center
+
         #otherImages
-            background-color: orange
+            display: flex
+            flex-direction: row
+            justify-content: space-between
+            width: 80vw
+            justify-self: center
+            img
+                max-width: 30vw
+                max-height: 30vh
+
+@media screen and (min-width: 768px)
+    #container
+        article
+            #mainImage
+                max-width: 60vw
+                max-height: 60vh
+                display: flex
+                justify-self: center
+                img
+                    max-width: 60vw
+                    max-height: 60vh
+            #text
+                max-width: 60vw

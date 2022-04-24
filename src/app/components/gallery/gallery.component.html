@@ -12,6 +12,6 @@
         <div id="date"><p>{{dataSet[current_article].uploaded_time}}</p></div>
         <div id="mainImage"><img src="http://10.0.5.151/assets/images/uploads/{{dataSet[current_article].images[0][0]}}" alt=""></div>
         <div id="text">{{dataSet[current_article].description}}</div>
-        <ng-container *ngFor="let image of dataSet[current_article].images,let j = index"><div id="otherImages"><img src="http://10.0.5.151/assets/images/uploads/{{dataSet[current_article].images[j][0]}}" alt=""></div></ng-container>
+        <ng-container *ngIf="dataSet[current_article].images.length > 1"><div id="otherImages" *ngFor="let image of dataSet[current_article].images,let j = index"><img src="http://10.0.5.151/assets/images/uploads/{{dataSet[current_article].images[j][0]}}" alt=""></div></ng-container>
     </article>
 </div>
