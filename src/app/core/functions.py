@@ -52,6 +52,7 @@ def respond(response_dict: dict) -> Response:
     response_to_user = Response()
     response_to_user.content_type = "application/json"
     response_to_user.status_code = response_dict["status_code"]
+    response_to_user.headers["Access-Control-Allow-Origin"] = "*"
     response_to_user.data = json.dumps(response_dict)
     return response_to_user
 
