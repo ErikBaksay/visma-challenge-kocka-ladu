@@ -55,7 +55,7 @@ def respond(response_dict: dict) -> Response:
     return response_to_user
 
 
-def optimize_images(url: str) -> None:
+def optimize_images(url: str, photo_id: str) -> None:
     directory = os.path.dirname(url)
     file = os.path.basename(url)
 

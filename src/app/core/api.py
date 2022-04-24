@@ -3,7 +3,7 @@ from flask import Response, request
 from . import functions
 from . import constants
 import os
-from flask_mysqldb import MySQL
+import mysql.connector
 
 # temporarily
 USER_ID = 1
@@ -27,14 +27,14 @@ def get_category(category_string: str):
     return category_id
 
 
-def upload(user_request: request, mysql_conn: MySQL) -> Response:
+def upload(user_request: request, mysql_conn: mysql.connector) -> Response:
     if user_request.method != "POST":
         response_dict = functions.create_response(constants.RESPONSE_TYPES.ERROR, "method_not_allowed", "This method is not allowed", 405)
         return functions.respond(response_dict)
 
-    title = mysql_conn.connection.escape_string(user_request.form.get("title")).decode("utf-8")[:40]
-    description = mysql_conn.connection.escape_string(user_request.form.get("description")).decode("utf-8")
-    category = mysql_conn.connection.escape_string(user_request.form.get("category")).decode("utf-8")
+    title = user_request.form.get("title")[:40]
+    description = user_request.form.get("description")
+    category = user_request.form.get("category")
 
     category_id = get_category(category)
 
@@ -42,12 +42,17 @@ def upload(user_request: request, mysql_conn: MySQL) -> Response:
         response_dict = functions.create_response(constants.RESPONSE_TYPES.ERROR, "category_not_set", "Post category was not set.", 400)
         return functions.respond(response_dict)
 
-    cursor = mysql_conn.connection.cursor()
+    cursor = mysql_conn.cursor()
 
-    cursor.execute(f"INSERT INTO posts(user_id, category_id, title, description) VALUES ('{USER_ID}', '{category_id}', '{title}', '{description}');")
-    mysql_conn.connection.commit()
+    sql = "INSERT INTO posts(user_id, category_id, title, description) VALUES (%s, %s, %s, %s);"
+    values = (USER_ID, category_id, title, description, )
+    cursor.execute(sql, values)
 
-    cursor.execute(f"SELECT id FROM posts WHERE user_id='{USER_ID}' AND title='{title}' ORDER BY id DESC LIMIT 1;")
+    mysql_conn.commit()
+
+    sql = "SELECT id FROM posts WHERE user_id=%s AND title=%s ORDER BY id DESC LIMIT 1;"
+    values = (USER_ID, title, )
+    cursor.execute(sql, values)
     post_id = cursor.fetchall()[0][0]
 
     for image in user_request.files.getlist("pictures"):
@@ -64,11 +69,16 @@ def upload(user_request: request, mysql_conn: MySQL) -> Response:
         with open(uuid_path, "wb") as img:
             img.write(image.stream.read())
 
-        threading.Thread(target=functions.optimize_images, args=(uuid_path, )).start()
+        sql = "INSERT INTO photos(creator, path, alt_text, post_id) VALUES (%s, %s, 'alt_text', %s)"
+        values = (USER_ID, uuid, post_id)
+        cursor.execute(sql, values)
+        mysql_conn.commit()
 
-        cursor.execute(f"INSERT INTO photos(creator, path, alt_text, post_id) VALUES ('{USER_ID}', '{uuid}', "
-                       f"'alt_text', '{post_id}')")
-        mysql_conn.connection.commit()
+        sql = "SELECT id FROM photos WHERE path=%s"
+        values = (uuid, )
+        cursor.execute(sql, values)
+        photo_id = cursor.fetchall()[0][0]
+        threading.Thread(target=functions.optimize_images, args=(uuid_path, photo_id, )).start()
 
     cursor.close()
 
@@ -76,7 +86,7 @@ def upload(user_request: request, mysql_conn: MySQL) -> Response:
     return functions.respond(response_dict)
 
 
-def get(user_request: request, mysql_conn: MySQL, category: str) -> Response:
+def get(user_request: request, mysql_conn: mysql.connector, category: str) -> Response:
     if user_request.method != "GET":
         response_dict = functions.create_response(constants.RESPONSE_TYPES.ERROR, "method_not_allowed", "This method is not allowed", 405)
         return functions.respond(response_dict)
@@ -86,7 +96,7 @@ def get(user_request: request, mysql_conn: MySQL, category: str) -> Response:
         response_dict = functions.create_response(constants.RESPONSE_TYPES.ERROR, "category_not_set", "Post category was not set.", 400)
         return functions.respond(response_dict)
 
-    cursor = mysql_conn.connection.cursor()
+    cursor = mysql_conn.cursor()
     cursor.execute(f"SELECT id, title, description, uploaded FROM posts WHERE category_id='{category_id}' ORDER BY uploaded DESC, id DESC LIMIT 10;")
     responses = cursor.fetchall()
 

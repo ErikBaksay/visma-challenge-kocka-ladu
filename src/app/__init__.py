@@ -1,18 +1,17 @@
-from flask import Flask, request, Response
-from flask_mysqldb import MySQL
+from flask import Flask, request
+import mysql.connector
 from core import api as core_api
 import core.constants as constants
 import core.functions as functions
 
 app = Flask(__name__)
 
-app.config['MYSQL_HOST'] = constants.DB_HOST
-app.config['MYSQL_USER'] = constants.DB_USER
-app.config['MYSQL_PASSWORD'] = constants.DB_PASSWORD
-app.config['MYSQL_DB'] = constants.DB_DATABASE
-app.config['MYSQL_PORT'] = constants.DB_PORT
-
-mysql = MySQL(app)
+mysql_conn = mysql.connector.connect(
+    user=constants.DB_USER,
+    password=constants.DB_PASSWORD,
+    host=constants.DB_HOST,
+    database=constants.DB_DATABASE,
+    port=constants.DB_PORT)
 
 not_found_response = functions.create_response(constants.RESPONSE_TYPES.ERROR, "not_found", "This resource was not found.", 404)
 not_found_response = functions.respond(not_found_response)
@@ -27,11 +26,12 @@ def hello_world():
 @app.route("/api/<user_request>/<category>", methods=["GET", "POST"])
 def api(user_request, category):
     if user_request == "upload":
-        return core_api.upload(request, mysql)
+        return core_api.upload(request, mysql_conn)
     if user_request == "get":
-        return core_api.get(request, mysql, category)
+        return core_api.get(request, mysql_conn, category)
     return not_found_response
 
 
 if __name__ == "__main__":
     app.run(debug=True)
+    mysql_conn.close()
