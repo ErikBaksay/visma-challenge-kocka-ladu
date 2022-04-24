@@ -19,10 +19,10 @@ request_ =\
 def get_category(category_string: str):
     category_id = -1
     category_id = constants.POST_CATEGORIES.NEWCOMERS if category_string == "newcomers" else category_id
-    category_id = constants.POST_CATEGORIES.NEW_PROJECTS if category_string == "projects" else category_id
+    category_id = constants.POST_CATEGORIES.NEW_PROJECTS if category_string == "new-projects" else category_id
     category_id = constants.POST_CATEGORIES.TOURNAMENTS if category_string == "tournaments" else category_id
-    category_id = constants.POST_CATEGORIES.SPORT_CHALLENGES if category_string == "sport" else category_id
-    category_id = constants.POST_CATEGORIES.OTHER_EVENTS if category_string == "other" else category_id
+    category_id = constants.POST_CATEGORIES.SPORT_CHALLENGES if category_string == "sport-challenges" else category_id
+    category_id = constants.POST_CATEGORIES.OTHER_EVENTS if category_string == "other-events" else category_id
 
     return category_id
 
