@@ -1,5 +1,6 @@
 input,
-select
+select,
+textarea
     -webkit-appearance: none
     -moz-appearance: none
     appereance: none
@@ -15,11 +16,12 @@ select
     line-height: 1.5rem
     width: 100%
     box-sizing: border-box
+    resize: none
 
 .grid
     display: grid
     grid-gap: 1rem
-    grid-template-areas: "a a" "b c" "d d" "e e"
+    grid-template-areas: "a a" "b c" "d d" "e e" "f f"
 
 .wrapper
     margin: 1rem
@@ -39,3 +41,6 @@ select
 
 .e
     grid-area: e
+
+.f
+    grid-area: f
