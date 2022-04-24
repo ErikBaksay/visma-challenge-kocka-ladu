@@ -13,10 +13,13 @@ export class GalleryComponent implements OnInit {
   images_data = images_data
   current_route = 'newcomers'
   current_route_id = 0
+  dataSet : any = null
+  current_article = 0
 
   constructor(private router : Router, private route: ActivatedRoute, private dataService : DataServiceService) {
-    dataService.getData().subscribe(data =>{
-      console.log(data)
+    dataService.getData(this.current_route).subscribe(data=>{
+      this.dataSet = data.message
+      console.log(this.dataSet)
     })
     router.events.subscribe((val)=>{
       if(val instanceof NavigationEnd){
@@ -25,6 +28,10 @@ export class GalleryComponent implements OnInit {
           for(let i = 0; i<this.images_data.length; i+=1){
             if(this.images_data[i].category==this.current_route){
               this.current_route_id = i
+              dataService.getData(this.current_route).subscribe(data=>{
+                data = data
+                console.log(data)
+              })
               
             }     
           }
@@ -35,9 +42,6 @@ export class GalleryComponent implements OnInit {
   
 
   ngOnInit(): void {
-    window.addEventListener('DOMContentLoaded', (event) => {
-      console.log('DOM fully loaded and parsed');
-    });
     // onInitFunction()
     window.onload = function () {
       let newHeight = 30
@@ -45,7 +49,6 @@ export class GalleryComponent implements OnInit {
       let lastIndex = 4
       let parallax_types = ['parallaxSlow', 'parallaxMedium', 'parallaxHigh']
       document.querySelectorAll<HTMLElement>(".imageCard").forEach(element => {
-        console.log(element);
         
         element.style.visibility = 'visible'
         element.classList.add('animate__fadeInUp')
@@ -54,10 +57,10 @@ export class GalleryComponent implements OnInit {
         if (i%2 == 0){
           newHorizontalChange = 0-newHorizontalChange
         }    
-        newHeight+=Math.floor(Math.random() * 30);
+        newHeight+=(Math.floor(Math.random() * 30));
         element.setAttribute('style', `position:relative; top:${newHeight}px; right:${newHorizontalChange}vw`)
         window.addEventListener('scroll',function(){
-          var value = 0- window.scrollY;
+          var value = 0- window.scrollY + newHeight;
           
           if (element.classList.contains('parallaxHigh')){
             let movingSpeed = value*0.14
@@ -93,18 +96,26 @@ export class GalleryComponent implements OnInit {
       let element = document.getElementById('imageCard'+j)
       element?.classList.remove('animate__fadeInUp')
       element?.classList.add('animate__fadeOutUpBig')
+      setTimeout(function(){element!.style.display="none"},1700)
     }
     for(let k = i+1; k < document.getElementsByClassName('imageCard').length;k++){
       let element = document.getElementById('imageCard'+k)
       element?.classList.remove('animate__fadeInUp')
       element?.classList.add('animate__fadeOutDownBig')
+      setTimeout(function(){element!.style.display="none"},1700)
+      
     }
     let element = document.getElementById('imageCard'+i)
     element?.classList.remove('animate__fadeInUp')
-    // element?.classList.add('highlightedCard')
-    const topElement = window.innerHeight * 0.2 - element!.getBoundingClientRect().top;
-    element!.style.transition = "all 0.7s ease-in-out"
-    element!.style.top = `${topElement}px`
-    element!.style.right = '0px'
+    setTimeout(function(){(element?.classList.add('animate__pulse'))},100)
+    setTimeout(function(){(element?.classList.add('animate__fadeOutLeftBig'))},1000)
+    setTimeout(function(){element!.style.display="none"},1600)
+     
+    let article = document.getElementById('article')
+    
+    setTimeout(function(){article!.style.display = "grid"},1600)
+    setTimeout(function(){article?.classList.add('animate__fadeInRightBig')},1600)
+
+    this.current_article = i    
   }
 }

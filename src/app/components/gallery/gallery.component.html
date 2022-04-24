@@ -7,4 +7,11 @@
         (click)="openImage(i)">
         <img src="{{image}}" alt="">
     </div>
+    <article id="article" class="animate__animated">
+        <div id="mainTitle"><h1>{{dataSet[current_article].title}}</h1></div>
+        <div id="date"><p>{{dataSet[current_article].uploaded_time}}</p></div>
+        <div id="mainImage"><img src="http://10.0.5.151/assets/images/uploads/{{dataSet[current_article].images[0][0]}}" alt=""></div>
+        <div id="text">{{dataSet[current_article].description}}</div>
+        <ng-container *ngFor="let image of dataSet[current_article].images,let j = index"><div id="otherImages"><img src="http://10.0.5.151/assets/images/uploads/{{dataSet[current_article].images[j][0]}}" alt=""></div></ng-container>
+    </article>
 </div>

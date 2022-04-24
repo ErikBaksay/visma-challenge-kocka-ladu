@@ -8,8 +8,8 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
 
-  categories = ['Newcomers', 'New Projects', 'Tournaments', 'Sport Challenges', 'Other events']
-  routes = ['newcomers','new-projects','tournaments','sport-challenges','other-events']
+  categories = ['Newcomers', 'New Projects', 'Tournaments', 'Sport Challenges', 'Other events','Create a new post']
+  routes = ['newcomers','new-projects','tournaments','sport-challenges','other-events', 'create']
   current_category = 'Newcomers'
 
   constructor( private router : Router) { }
@@ -28,6 +28,6 @@ export class NavbarComponent implements OnInit {
   chooseCategory(i:number){
     this.current_category = this.categories[i]
     this.router.navigate([this.routes[i]])
-    
+    document.getElementById('collapsableMenu')!.style.display='none'
   }
 }

@@ -1,3 +1,4 @@
+import { Response } from './../../data-interface';
 import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 
@@ -9,9 +10,9 @@ export class DataServiceService {
 
   constructor(private http : HttpClient) {}
 
-  getData(){
-    const url ='http://10.0.5.151/api/get/newcomers'
-    return this.http.get(url)
+  getData(category:string){
+    const url =`http://10.0.5.151/api/get/${category}`
+    return this.http.get<Response>(url)
   }
 
 }
