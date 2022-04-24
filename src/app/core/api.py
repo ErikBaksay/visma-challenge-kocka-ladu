@@ -9,6 +9,17 @@ import mysql.connector
 USER_ID = 1
 
 
+def get_database() -> mysql.connector:
+    mysql_conn = mysql.connector.connect(
+        user=constants.DB_USER,
+        password=constants.DB_PASSWORD,
+        host=constants.DB_HOST,
+        database=constants.DB_DATABASE,
+        port=constants.DB_PORT)
+
+    return mysql_conn
+
+
 def get_category(category_string: str):
     """
     Maps category string to category number related to DB category table
@@ -25,7 +36,7 @@ def get_category(category_string: str):
     return category_id
 
 
-def upload(user_request: request, mysql_conn: mysql.connector) -> Response:
+def upload(user_request: request) -> Response:
     """
     Uploads new posts to database based on request body. More about DB in README.md in this folder
     :param user_request: Flask request containing information for upload
@@ -46,6 +57,7 @@ def upload(user_request: request, mysql_conn: mysql.connector) -> Response:
         response_dict = functions.create_response(constants.RESPONSE_TYPES.ERROR, "category_not_set", "Post category was not set.", 400)
         return functions.respond(response_dict)
 
+    mysql_conn = get_database()
     cursor = mysql_conn.cursor()
 
     sql = "INSERT INTO posts(user_id, category_id, title, description) VALUES (%s, %s, %s, %s);"
@@ -85,12 +97,13 @@ def upload(user_request: request, mysql_conn: mysql.connector) -> Response:
         threading.Thread(target=functions.optimize_images, args=(uuid_path, photo_id, )).start()
 
     cursor.close()
+    mysql_conn.close()
 
     response_dict = functions.create_response(constants.RESPONSE_TYPES.OK)
     return functions.respond(response_dict)
 
 
-def get(user_request: request, mysql_conn: mysql.connector, category: str) -> Response:
+def get(user_request: request, category: str) -> Response:
     """
     Returns posts from database based on category. More about DB in README.md in this folder.
     :param user_request: Flask request containing information for return
@@ -107,6 +120,7 @@ def get(user_request: request, mysql_conn: mysql.connector, category: str) -> Re
         response_dict = functions.create_response(constants.RESPONSE_TYPES.ERROR, "category_not_set", "Post category was not set.", 400)
         return functions.respond(response_dict)
 
+    mysql_conn = get_database()
     cursor = mysql_conn.cursor()
     cursor.execute(f"SELECT id, title, description, uploaded FROM posts WHERE category_id='{category_id}' ORDER BY uploaded DESC, id DESC LIMIT 10;")
     responses = cursor.fetchall()
@@ -121,6 +135,7 @@ def get(user_request: request, mysql_conn: mysql.connector, category: str) -> Re
         responses = cursor.fetchall()
 
     cursor.close()
+    mysql_conn.close()
 
     for response in responses:
         response_dict[str(response[3])]["images"].append([response[0], response[1], response[2]])
