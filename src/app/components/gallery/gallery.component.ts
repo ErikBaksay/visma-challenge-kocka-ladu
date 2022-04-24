@@ -102,7 +102,8 @@ export class GalleryComponent implements OnInit {
     let element = document.getElementById('imageCard'+i)
     element?.classList.remove('animate__fadeInUp')
     // element?.classList.add('highlightedCard')
-    element!.style.top = '0px'
+    const topElement = window.innerHeight * 0.2 - element!.getBoundingClientRect().top;
+    element!.style.top = `${topElement}px`
     element!.style.right = '0px'
   }
 }
